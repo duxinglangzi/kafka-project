@@ -1,0 +1,74 @@
+version: "3"
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    restart: always
+    networks:
+      - conor
+  kafka1:
+    image: wurstmeister/kafka
+    container_name: kafka1
+    ports:
+      - "9091:9091"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_LISTENERS: DOCKER://0.0.0.0:19091,HOST://0.0.0.0:9091
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_BROKER_ID: 1
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka1:19091,HOST://39.104.21.XXX:9091
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - /usr/local/kafka/kafka-data-1/config:/opt/kafka/config
+      - /usr/local/kafka/kafka-data-1:/kafka:rw
+    restart: always
+    networks:
+      - conor
+  kafka2:
+    image: wurstmeister/kafka
+    container_name: kafka2
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_LISTENERS: DOCKER://0.0.0.0:19092,HOST://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_BROKER_ID: 2
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://kafka2:19092,HOST://39.104.21.XXX:9092
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - /usr/local/kafka/kafka-data-2/config:/opt/kafka/config
+      - /usr/local/kafka/kafka-data-2:/kafka:rw
+    restart: always
+    networks:
+      - conor
+  kafka-manager:
+    image: sheepkiller/kafka-manager:latest
+    restart: always
+    container_name: kafka-manager
+    hostname: kafka-manager
+    ports:
+      - "9090:9000"
+    links:            # 连接本compose文件创建的container
+      - kafka1
+      - kafka2
+    #external_links:   # 连接本compose文件以外的container
+    #  - zoo1
+    #  - zoo2
+    #  - zoo3
+    environment:
+      ZK_HOSTS: zookeeper:2181  ## 修改:宿主机IP
+      TZ: CST-8
+    networks:
+      - conor
+networks:
+  conor:
+    driver: bridge
