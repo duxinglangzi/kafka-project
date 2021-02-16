@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	HOSTS  = []string{"39.104.21.XXX:9092","39.104.21.XXX:9091"}
-	// HOSTS  = []string{"39.104.21.XXX:9092"}
+	// HOSTS  = []string{"39.104.21.XXX:9092","39.104.21.XXX:9091"}
+	HOSTS = []string{"39.104.21.XXX:9092"}
 )
 
 const (

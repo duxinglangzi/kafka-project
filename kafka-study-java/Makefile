@@ -8,7 +8,7 @@ build-maven:
 	mvn package
 	@echo remove old jar and copy new jar # 先删除掉老的jar包，在拷贝新的
 	rm -f kafka-study-java.jar
-	cp $(PWD)/target/kafka-study-java-0.0.1-SNAPSHOT.jar kafka-study-java.jar
+	cp $(PWD)/target/kafka-study-java-0.1.jar kafka-study-java.jar
 
 build-docker:build-maven
 	@echo package images, use default DockerFile # 打包镜像，默认使用当前DockerFile
@@ -22,3 +22,6 @@ build-docker:build-maven
 
 build-docker-start-test:
 	docker run -i --rm --name kafka-study-java -p 8090:8090 duxinglangzi/kafka-study-java:$(BUILD_TAG)
+
+build-test:
+	@echo 'neira 好 好好'

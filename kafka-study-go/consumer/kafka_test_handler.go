@@ -12,7 +12,6 @@ func (k *KafkaService) InitKafkaHandler() {
 	}
 }
 
-
 func KafkaTestHandler(topic string, key string, value string, offset int64) {
 	log.Printf("打印topic信息, topic name: %v , key: %v , offset:%v , value: %v \n", topic, key, offset, value)
 }
