@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * <p>@Author conor  2021/1/30 </p>
  */
 @RestController
-public class TestController {
+public class AppController {
 
 
     @Autowired
