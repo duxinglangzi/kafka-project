@@ -19,6 +19,12 @@ build-docker:build-maven
 	rm -f kafka-study-java.jar
 	mvn clean
 
+stop-server:
+	@echo stop server #停止服务 ## awk 命令简单教程 https://www.runoob.com/linux/linux-comm-awk.html
+	@for PID in $$(ps -ef | grep "java" | grep "kafka-study-java" | awk '{print $$2}'); do \
+  		echo $$PID; \
+  		kill -9 $$PID; \
+	done
 
 build-docker-start-test:
 	docker run -i --rm --name kafka-study-java -p 8090:8090 duxinglangzi/kafka-study-java:$(BUILD_TAG)
