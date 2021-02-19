@@ -1,33 +1,31 @@
-
 BUILD_TAG := $(shell date +'%Y%m%d%H%M')
 
 build-maven:
-	@echo maven cliean project ## Ö´ĞĞmaven ÇåÀí
+	@echo maven cliean project æ‰§è¡Œmaven æ¸…ç†
 	mvn clean
-	@echo maven package project # Ö´ĞĞmaven ´ò°ü
+	@echo maven package project æ‰§è¡Œmaven æ‰“åŒ…
 	mvn package
-	@echo remove old jar and copy new jar # ÏÈÉ¾³ıµôÀÏµÄjar°ü£¬ÔÚ¿½±´ĞÂµÄ
+	@echo remove old jar and copy new jar  å…ˆåˆ é™¤æ‰è€çš„jaråŒ…,å†æ‹·è´æ–°çš„
 	rm -f kafka-study-java.jar
 	cp $(PWD)/target/kafka-study-java-0.1.jar kafka-study-java.jar
 
 build-docker:build-maven
-	@echo package images, use default DockerFile # ´ò°ü¾µÏñ£¬Ä¬ÈÏÊ¹ÓÃµ±Ç°DockerFile
+	@echo package images, use default DockerFile æ‰“åŒ…é•œåƒé»˜è®¤ä½¿ç”¨å½“å‰DockerFile
 	docker build . -t duxinglangzi/kafka-study-java:$(BUILD_TAG)
-	@echo docker push image # ½«±¾µØ¾µÏñÍÆËÍµ½Ô¶³Ì²Ö¿â
+	@echo docker push image å°†æœ¬åœ°é•œåƒæ¨é€åˆ°è¿œç¨‹ä»“åº“
 	docker image push duxinglangzi/kafka-study-java:$(BUILD_TAG)
-	@echo clean old jar and maven clean # ÇåÀíÊ¹ÓÃ¹ıµÄjar  ÒÔ¼° maven
+	@echo clean old jar and maven clean æ¸…ç†ä½¿ç”¨è¿‡çš„jar  ä»¥åŠ maven
 	rm -f kafka-study-java.jar
 	mvn clean
 
 stop-server:
-	@echo stop server #Í£Ö¹·şÎñ ## awk ÃüÁî¼òµ¥½Ì³Ì https://www.runoob.com/linux/linux-comm-awk.html
+	@echo stop server åœæ­¢æœåŠ¡ ## awk å‘½ä»¤ç®€å•æ•™ç¨‹ https://www.runoob.com/linux/linux-comm-awk.html
 	@for PID in $$(ps -ef | grep "java" | grep "kafka-study-java" | awk '{print $$2}'); do \
   		echo $$PID; \
   		kill -9 $$PID; \
+  		echo å·²åœæ­¢PID: $$PID; \
 	done
 
 build-docker-start-test:
 	docker run -i --rm --name kafka-study-java -p 8090:8090 duxinglangzi/kafka-study-java:$(BUILD_TAG)
 
-build-test:
-	@echo 'neira ºÃ ºÃºÃ'
