@@ -30,4 +30,20 @@ public class KafkaConsumer {
 //                });
     }
 
+    @KafkaListener(topics = {"filebeats-topic"}, groupId = "filebeats-comsumer-group")
+    public void listenKafkaFilebeats(ConsumerRecord<?, ?> record) {
+
+        if (record.value() != null) {
+            System.out.println("[>>>>>>>>>>>>>>>>] filebeats-offset : "+ record.offset());
+            System.out.println("[>>>>>>>>>>>>>>>>] filebeats-topic : "+ record.topic());
+            System.out.println("[>>>>>>>>>>>>>>>>] filebeats-toString : "+ record.toString());
+        }
+
+//        Optional.ofNullable(record.value())
+//                .ifPresent(message -> {
+//                    System.out.println("【+++++++++++++++++ record = {} 】" + record);
+//                    System.out.println("【+++++++++++++++++ message = {}】" + message);
+//                });
+    }
+
 }
