@@ -1,5 +1,7 @@
 # 基础镜像
 FROM java:8
+# 创建filebeat目录， 将日志打印到此目录下
+RUN cd /usr/local && mkdir filebeat
 # 作者
 MAINTAINER conor
 # 把可执行jar包复制到基础镜像的根目录下
