@@ -6,7 +6,7 @@ build-linux: ## 编译
 	@echo 编译安装环境
 	env GOOS=linux GOARCH=amd64 $(GO) build -o $(GOBIN) $(GOFLAGS) com/conor/kafka/main
 
-build-macOs: ## 编译
+build-macOS: ## 编译
 	@echo 编译MacOs安装环境
 	$(GO) build -o $(GOBIN) $(GOFLAGS) com/conor/kafka/main
 

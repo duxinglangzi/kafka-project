@@ -2,7 +2,9 @@ package com.conor.kafkastudy.controller;
 
 import com.conor.kafkastudy.service.KafkaSender;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>Description: </p>
@@ -17,7 +19,8 @@ public class AppController {
 
 
     @GetMapping("sendMessage")
-    public void sendMessage(@RequestParam("msg") String msg){
+    public void sendMessage(@RequestParam("msg") String msg) {
         kafkaSender.send(msg);
     }
+
 }

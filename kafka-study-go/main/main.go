@@ -14,11 +14,11 @@ import (
 
 var (
 	// HOSTS  = []string{"39.104.21.XXX:9092","39.104.21.XXX:9091"}
-	HOSTS = []string{"39.104.21.XXX:9092"}
+	HOSTS = []string{"39.104.21.126:9092"}
 )
 
 const (
-	TOPIC = "test-kafka-topic"
+	TOPIC = "filebeats-topic"
 	KEY   = "test-kafka-key"
 )
 
@@ -44,7 +44,7 @@ func main() {
 }
 
 func sendMessage(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm() //解析url传递的参数，对于POST则解析响应包的主体（request body）
+	r.ParseForm() // 解析url传递的参数，对于POST则解析响应包的主体（request body）
 	readAll, _ := ioutil.ReadAll(r.Body)
 	mapJSON := make(map[string]interface{})
 	json.Unmarshal(readAll, &mapJSON)
