@@ -20,6 +20,7 @@ public class KafkaConsumer {
         if (record.value() != null) {
             System.out.println("[>>>>>>>>>>>>>>>>] offset : "+ record.offset());
             System.out.println("[>>>>>>>>>>>>>>>>] topic : "+ record.topic());
+            System.out.println("[>>>>>>>>>>>>>>>>] value : "+ record.value());
             System.out.println("[>>>>>>>>>>>>>>>>] toString : "+ record.toString());
         }
 
